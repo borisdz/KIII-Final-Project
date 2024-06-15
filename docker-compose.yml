@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    container_name: e-shop
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: b17i19
+      POSTGRES_DB: e-shop
+    ports:
+      - "5432:5432"
+    networks:
+      - eshop-network
+
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/e-shop
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: b17i19
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+    depends_on:
+      - postgres
+    ports:
+      - "9090:9090"
+    networks:
+      - eshop-network
+volumes:
+  init:
+networks:
+  eshop-network:
+    driver: bridge
