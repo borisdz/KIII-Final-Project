@@ -30,3 +30,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Vim temp files ###
+*~
+*.swp
+*.swo
