@@ -1,47 +1,26 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: spring-config
-  namespace: kiii-project
-data:
-  application.properties: |
-    spring.datasource.url=jdbc:postgresql://postgres:5432/e-shop
-    spring.datasource.username=postgres
-    spring.datasource.hikari.connectionTimeout=20000
-    spring.datasource.hikari.maximum-pool-size=5
-    spring.datasource.driver-class-name=org.postgresql.Driver
-    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-    spring.jpa.properties.hibernate.jdbc.lob_non_contextual_creation=true
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.show-sql=true
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kiii-project-app-secret
-  namespace: kiii-project
-type: Opaque
-data:
-  spring.datasource.password: YjE3aTE5=
----
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kiii-project-app
-  namespace: kiii-project
+  name: deployment-eshop-185022
+  namespace: kiii-project-borisdz-185022
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: kiii-project-app-pod
+      app: app-eshop-185022
+  replicas: 1
   template:
     metadata:
       labels:
-        app: kiii-project-app-pod
+        app: app-eshop-185022
     spec:
       containers:
-        - name: kiii-project-app
-          image: borisdz/kiii-project-app
-          env:
-            - name: APP_URL
-              value: "https://
+        - name: app-eshop-185022
+          image: borisdz/kiii-project-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: configmap-eshop185022
+            - secretRef:
+                name: secret-app
