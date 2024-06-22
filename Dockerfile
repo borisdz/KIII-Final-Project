@@ -1,11 +1,13 @@
-FROM maven:3.9.7-amazoncorretto-17
-COPY src /home/app/src
-COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean package
+FROM maven:3.8.4-openjdk-17 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src ./src
+RUN mvn package -DskipTests
 
-FROM openjdk:17-jdk
+FROM openjdk:17-jdk-slim
 LABEL authors="Boris Djotov 185022"
 WORKDIR /app
-COPY target/*.jar /app/e-shop-0.0.1-SNAPSHOT.jar
+COPY --from=build /app/target/*.jar e-shop-0.0.1-SNAPSHOT.jar
 EXPOSE 9090
 ENTRYPOINT ["java","-jar","/app/e-shop-0.0.1-SNAPSHOT.jar"]

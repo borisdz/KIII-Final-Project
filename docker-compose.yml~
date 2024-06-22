@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: b17i19
       POSTGRES_DB: e-shop
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - eshop-sql:/var/lib/postgresql/data
     networks:
@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/e-shop
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/e-shop
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: b17i19
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
