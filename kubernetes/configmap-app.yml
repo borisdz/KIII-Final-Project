@@ -7,5 +7,6 @@ data:
   application.properties: |
     spring.datasource.url=jdbc:postgresql://service-postgres:5432/eshop
     spring.datasource.username=postgres
+    spring.datasource.password=b17i19
     spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.properties.hibernate.dialect=org.ibernate.dialect.PostgreSQLDialect
+    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
