@@ -4,8 +4,11 @@ metadata:
   name: service-postgres
   namespace: kiii-project-borisdz-185022
 spec:
-  type: ClusterIP
   selector:
     app: postgres
   ports:
     - port: 5432
+      targetPort: 5432
+  clusterIP: None
+  selector:
+    app: postgres
