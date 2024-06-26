@@ -2,5 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: config-postgres
+  namespace: kiii-project-borisdz-185022
 data:
+  POSTGRES_USER: postgres
   POSTGRES_DB: eshop

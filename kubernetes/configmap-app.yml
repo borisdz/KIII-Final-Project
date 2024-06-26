@@ -4,4 +4,8 @@ metadata:
   name: configmap-eshop185022
   namespace: kiii-project-borisdz-185022
 data:
-  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-service:5432/eshop
+  application.properties: |
+    spring.datasource.url=jdbc:postgresql://service-postgres:5432/eshop
+    spring.datasource.username=postgres
+    spring.jpa.hibernate.ddl-auto=update
+    spring.jpa.properties.hibernate.dialect=org.ibernate.dialect.PostgreSQLDialect

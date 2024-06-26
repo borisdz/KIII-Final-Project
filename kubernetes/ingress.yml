@@ -5,9 +5,11 @@ metadata:
   namespace: kiii-project-borisdz-185022
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: "traefik"
 spec:
+  ingressClassName: traefik
   rules:
-    - host: "localhost"
+    - host: "eshop-185022.com"
       http:
         paths:
           - path: /
@@ -16,4 +18,4 @@ spec:
               service:
                 name: service-app
                 port:
-                  number: 80
+                  number: 9090

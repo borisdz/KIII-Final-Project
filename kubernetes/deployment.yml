@@ -18,7 +18,7 @@ spec:
           image: borisdz/kiii-project-app:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 9090
           envFrom:
             - configMapRef:
                 name: configmap-eshop185022

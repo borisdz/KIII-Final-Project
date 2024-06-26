@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  namespace: kiii-project-borisdz-185022
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-pod
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 300
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: app-pod
+    spec:
+      containers:
+        - name: spring-app
+          image: borisdz/kiii-project-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: /etc/config/
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-app
+                  key: spring.datasource.password
+          volumeMounts:
+            - name: app-config-volume
+              mountPath: /etc/config
+              readOnly: true
+            - name: app-secret-volume
+              mountPath: /etc/secret
+              readOnly: true
+      volumes:
+        - name: app-config-volume
+          configMap:
+            name: configmap-eshop185022
+        - name: app-secret-volume
+          secret:
+            secretName: secret-app
