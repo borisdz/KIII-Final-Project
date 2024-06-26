@@ -17,6 +17,8 @@ spec:
         - name: postgres
           image: postgres:13
           env:
+            - name: POSTGRES_DB
+              value: eshop
             - name: POSTGRES_USERNAME
               valueFrom:
                 secretKeyRef:
